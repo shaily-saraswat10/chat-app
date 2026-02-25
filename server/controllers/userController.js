@@ -72,7 +72,7 @@ export const updateProfile = async (req,res)=>{
         if(!profilePic){
            updatedUser = await User.findByIdAndUpdate(userId,{bio,fullName},{new:true});
         }else{
-            //pehle cloundiary me upload krunga fr uske baad url lunga
+            //pehle cloundiary me upload krungi fr uske baad url lungi
             const upload = await cloudinary.uploader.upload(profilePic);
 
             updatedUser = await User.findByIdAndUpdate(userId,{profilePic:upload.secure_url,bio,fullName},{new:true});
