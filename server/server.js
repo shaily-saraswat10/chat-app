@@ -10,10 +10,11 @@ import { Server } from 'socket.io'
 //Create Express app and HTTP Server
 const app = express()
 const server = http.createServer(app)
+const allowedOrigins = process.env.CLIENT_URL ? process.env.CLIENT_URL.split(",") : "*";
 
 //Initialise socket.io server
 export const io = new Server(server,{
-    cors:{origin:"*"} 
+    cors:{origin:allowedOrigins} 
 })
 
 //Store online Users
@@ -38,7 +39,7 @@ io.on("connection",(socket)=>{
 
 //Middleware setup
 app.use(express.json({limit:"4mb"}));
-app.use(cors());
+app.use(cors({origin:allowedOrigins}));
 
 
 //Routes setup
